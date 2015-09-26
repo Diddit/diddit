@@ -7,3 +7,7 @@ List of all by category (parent node) w/prioritization & right side showing dep 
 Permissions (read, write, "do task", groups)
 Types (executable on server as special)
 
+Tree order:
+Node has list of pointers to Nodes that depend on it.
+Thus, empty "category" Nodes can have an easily maintained list of related "dependencies".
+Better server maintenance for when Node is completed.
