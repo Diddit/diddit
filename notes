@@ -1,0 +1,9 @@
+Displays:
+Tree (organized by dependencies)
+Topologically sorted (client-side0
+List of all by category (parent node) w/prioritization & right side showing dep tree
+
+"Node":
+Permissions (read, write, "do task", groups)
+Types (executable on server as special)
+
