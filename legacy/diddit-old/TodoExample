@@ -1,0 +1,71 @@
+
+
+Get "Tent"
+Get "Stuff"
+
+
+
+
+
+Get "Stuff"
+Send "Thank You Notes"		
+	"Upload
+
+
+Buy "Idaho Potatoes"
+	Upload to Youtube
+
+
+
+
+
+
+Send Thank You Notes:
+	Send Thank You Note x200
+
+Send Thank You Note":
+	Write Thank You Note:
+		Upload "TY film":
+			Write "TY Uploader Script"
+
+Write "TY Uploader Script":
+	
+		
+			
+Hang ?N Decorations:
+	?N Organize Decorations, THEN
+	?N Decoration locations, THEN
+	Place ?N Decorations in location, THEN
+
+Make ?N Buckeyes:
+	Buy Peanut Butter
+	Buy Confectioner's sugar, THEN
+
+	Make Batter:
+		Mix Peanut Butter,CF's sugar
+		Melt Chocolate
+		THEN
+		Pour Melted chocolate on batter,THEN
+		Let coool
+
+
+Install Back Room Wall Outlets
+	Put Phone line to back wall
+	Put Cable line to back wall and ceiling 
+	THEN
+	Wire Jacks
+	Cut Holes
+	Install Blue Boxes
+	Install Jack
+	Install Splitters.
+Wire for Cable
+	Wire together Coax Boxes
+	Install Antenna.
+	Coax Cable For TV
+Wire for Phone
+	Wire togetgher phones
+
+
+	
+
+

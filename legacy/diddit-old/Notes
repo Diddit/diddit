@@ -1,0 +1,79 @@
+
+Design specifications:
+
+There are four sub-components to the design:
+	diddit-backend (Thin REST server in python GAE)
+		The diddit backend is a thin server that implements the restful protocol for Backbone.js to store things in the database.
+		It also handles authentication and permissions for users
+		http://en.wikipedia.org/wiki/Single-page_application#Thin_server_architecture
+
+	diddit-core (Pure Javascript Library to implement diddit model actions like topo sorting, sharing, and dependency management)
+		diddit-core uses Backbone.js to implement server-client syncing
+		Its core feature is a datastructure of all the client nodes that allows fast insertion,removal,modification, toposorting and priority-queue generation.
+
+		A node in diddit always inherits from a javascript class.  That javascript class gives it custom properties and rendering.  Some of which are ALWAYS present.
+
+		The key important thing about the javascript class is the children properties (and parent properties...it's bi-directional for fast re-evaluation) and the 
+		'satisfied()' function.  The 'satisfied()' function should absolutely be deterministic.  It also should ASSUME that all of its children are satisfied before the satisfied() call is performed, however, this can be 
+		overridden. (or maybe cached to walk up the tree? Hmm..)
+		It returns a boolean to determine if the dependency is considered satisfied.
+		
+	
+	diddit-frontend (Javascript, HTML5, css3 and bootstrap)
+		the diddit-frontend is the SINGLE-PAGE-APPLICATION (http://en.wikipedia.org/wiki/Single-page_application)
+		implementation of the diddit user experience.  Diddit's primary goal is the management of nodes in a DAG.
+		Visualization and editing of this DAG is the most important diddit function.
+	
+		The diddit frontend has two 'modes'.  Edit mode (the main mode) visualizes each node as a rich box, that can be expanded or lowered.  
+			It visualizes the tree structure of the DAG using indentation (with optional exploring).  
+			If a node appears twice in the tree it is simply duplicated (but possibly draw a link between its other copies?)
+
+			Command Window: 
+				There is a (default hidden) bar at the top of the page that the user can enter 'commands' in.  Command syntax will be decided later, but it allows the user to programmatically insert or delete nodes
+				or find nodes or other common tasks with a text interface.
+			
+			Edit Mode Nodes:
+				Nodes generally have custom rendering, but all nodes are approximately in the form of a with a short summary texname, then a wide 'content' pane (which is a longer description by default but can be other text or visual elements).  Then, a button to 'expand/collapse children' that expands the tree and shows the 'advanced' text, and a button to 'edit' which means to add nodes or delete children.
+				A node should almost certainly be a bootstrap panel object with dynamically changing content.
+
+			
+		
+
+		Priority mode visualizes the nodes as a linear list, sorted by priority.   There is also a 'notification' area or popup box. 
+
+	
+
+	diddit-std (Javascript)
+		diddit-std is the set of all standard nodes that diddit ships with.  Nodes like "Time Range", "Task","Category","Location","Obtain"
+
+
+
+Old notes:
+
+
+Name:	Description
+	Sub Goal:	
+	Sub Goal:
+	Alternatives 
+		
+	
+		
+Keywords for various tasks...such as "buy" or "be at"
+
+Environmental procedures
+	During
+	After
+	While At
+
+Can include appointments
+
+alternatives (OR)
+
+template rules
+	
+
+
+
+
+
+			
