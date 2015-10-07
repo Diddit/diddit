@@ -7,7 +7,10 @@ class PermissionsModel(ndb.Model):
 
 class Task(ndb.Model):
 	permissions=ndb.StructuredProperty(PermissionsModel,indexed=True)
+	id_hash=ndb.ComputedProperty()
+	title=ndb.StringProperty()
 	type=ndb.StringProperty(indexed=True)
 	client_data=ndb.JsonProperty(indexed=False)
 	customers=ndb.KeyProperty(Task,indexed=True)
 	last_updated=ndb.DateTimeProperty(indexed=True,auto_now=True)
+	
