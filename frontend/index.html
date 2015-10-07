@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Diddit Viewer</title>
+    
+    <script src="dist/js/jquery.js"></script>
+  	<script src="dist/js/bootstrap-treeview.js"></script>
+
+    <!-- Bootstrap core CSS -->
+    <link href="dist/css/bootstrap.min.css" rel="stylesheet">
+  </head>
+
+  <body>
+    <div class="container">
+
+      <div class="page-header">
+        <h1>Diddit</h1>
+        <p class="lead">Task Visualization and Organization.</p>
+      </div>
+      
+      <div id="tree"></div>
+      
+    </div> <!-- /container -->
+  </body>
+  
+  <script src="text/javascript">
+  function getTree() {
+	/* Example json:
+	[
+	{"id":"dac9e8a1c1597e6c4537d018535e8519","title":"Household Tasks","data":{},"type":"diddit.Category","customers":[]},
+	{"id":"d58fa1d65b6422ebccf742c992dfb654","title":"Clean the toilet","data":{"done":False},"type":"diddit.UserReported","customers":["dac9e8a1c1597e6c4537d018535e8519"]},
+	{"id":"142c9bb834b5d6c75f5e93428b39f229","title":"Buy Toilet Cleaner","data":{"done":True,"product_id":"ToiletCleaner"},"type":"diddit.Buy","customers":["d58fa1d65b6422ebccf742c992dfb654"]},
+	{"id":"2e5f27fe26d8db05723fd6e588378cc3","title":"Clean the closet","data":{"done":False},"type":"diddit.UserReported","type":"diddit.UserReported","customers":["dac9e8a1c1597e6c4537d018535e8519"]},
+	{"id":"32f9cd5d56e5168b640d5d27f2039824","title":"Buy Surface Cleaner","data":{"done":True,"product_id":"SurfaceCleaner"},"type":"diddit.Buy","customers":["2e5f27fe26d8db05723fd6e588378cc3","d58fa1d65b6422ebccf742c992dfb654"]},
+	]*/
+  }
+
+$('#tree').treeview({data: getTree()});
+	</script>
+</html>
