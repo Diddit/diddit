@@ -29,61 +29,68 @@
     </div> <!-- /container -->
     
       <script type="text/Javascript">
+      
+      function topologicallySort(nodeTree)
+      {
+		// Topologically sort data: (first get root nodes)
+		var sorted = [], roots = [];
+		for(var node = 0; node < nodeTree.length; node++)
+		{
+			nodeTree[node].visited = false;
+			if(!(nodeTree[node].customers instanceof Array))
+			{
+				sorted.push(nodeTree[node]);
+				roots.push(nodeTree[node].id);
+				sorted[node].dependencies = [];
+				nodeTree[node].visited = true;
+			}
+		}
+		for(var root = 0; root < roots.length; root++)
+		{
+			for(var dependency = 0; dependency < nodeTree.length; dependency++)
+			{
+				for(var customer = 0; customer < nodeTree[dependency].customers.length; customer++)
+				{
+					if(nodeTree[dependency].customers[customer] == roots[root])
+					{
+						sorted[root].dependencies.push(nodeTree[dependency]);
+						if(!nodeTree[dependency].visited)
+						{
+							roots.push(nodeTree[dependency].id);
+							sorted.push(nodeTree[dependency]);
+							nodeTree[dependency].dependencies = [];
+							nodeTree[dependency].visited = true;
+						}
+					}
+				}
+			}
+		}
+		return sorted;
+      }
   function getTree() {
-	var nodeTreeData = '{"tree": [ \
-	{"id":"dac9e8a1c1597e6c4537d018535e8519","title":"Household Tasks","data":{},"type":"diddit.Category","customers":{}}, \
-	{"id":"d58fa1d65b6422ebccf742c992dfb654","title":"Clean the toilet","data":{"done":"False"},"type":"diddit.UserReported","customers":["dac9e8a1c1597e6c4537d018535e8519"]}, \
-	{"id":"142c9bb834b5d6c75f5e93428b39f229","title":"Buy Toilet Cleaner","data":{"done":"True","product_id":"ToiletCleaner"},"type":"diddit.Buy","customers":["d58fa1d65b6422ebccf742c992dfb654"]}, \
-	{"id":"2e5f27fe26d8db05723fd6e588378cc3","title":"Clean the closet","data":{"done":"False"},"type":"diddit.UserReported","customers":["dac9e8a1c1597e6c4537d018535e8519"]}, \
-	{"id":"32f9cd5d56e5168b640d5d27f2039824","title":"Buy Surface Cleaner","data":{"done":"True","product_id":"SurfaceCleaner"},"type":"diddit.Buy","customers":["2e5f27fe26d8db05723fd6e588378cc3","d58fa1d65b6422ebccf742c992dfb654"]}]}';
-	var nodeTree = JSON.parse(nodeTreeData);
+	var nodeTree = [ 
+	{"id":"dac9e8a1c1597e6c4537d018535e8519","title":"Household Tasks","data":{},"type":"diddit.Category","customers":{}}, 
+	{"id":"d58fa1d65b6422ebccf742c992dfb654","title":"Clean the toilet","data":{"done":"False"},"type":"diddit.UserReported","customers":["dac9e8a1c1597e6c4537d018535e8519"]}, 
+	{"id":"142c9bb834b5d6c75f5e93428b39f229","title":"Buy Toilet Cleaner","data":{"done":"True","product_id":"ToiletCleaner"},"type":"diddit.Buy","customers":["d58fa1d65b6422ebccf742c992dfb654"]}, 
+	{"id":"2e5f27fe26d8db05723fd6e588378cc3","title":"Clean the closet","data":{"done":"False"},"type":"diddit.UserReported","customers":["dac9e8a1c1597e6c4537d018535e8519"]}, 
+	{"id":"32f9cd5d56e5168b640d5d27f2039824","title":"Buy Surface Cleaner","data":{"done":"True","product_id":"SurfaceCleaner"},"type":"diddit.Buy","customers":["2e5f27fe26d8db05723fd6e588378cc3","d58fa1d65b6422ebccf742c992dfb654"]}];
 	
-	// Verify inputs
-	for(var node = 0; node < nodeTree.tree.length; node++)
+	var sorted = topologicallySort(nodeTree);
+	var treeviewData = [];
+	for(var node = 0; node < sorted.length; node++)
 	{
-		document.write(nodeTree.tree[node].title + '<br>');
-		document.write('\t' + nodeTree.tree[node].id + '<br>');
-		document.write('\t' + nodeTree.tree[node].data[0] + '<br>');
-		document.write('\t' + nodeTree.tree[node].type + '<br>');
-		document.write('\t' + nodeTree.tree[node].customers[0] + '<br><br>');
+		var treeviewDependencies = [];
+		for(var dep = 0; dep < sorted[node].dependencies.length; dep++)
+		{
+			treeviewDependencies.push({text : sorted[node].dependencies[dep].title});
+		}
+		if(treeviewDependencies.length > 0)
+			treeviewData.push({
+				text : sorted[node].title,
+				nodes : treeviewDependencies});
 	}
-	
-	// TODO: Topologically sort and format into treeview:
-	
-	var defaultData = [
-          {
-            text: 'Parent 1',
-            href: '#parent1',
-            tags: ['4'],
-            nodes: [
-              {
-                text: 'Child 1',
-                href: '#child1',
-                tags: ['2'],
-                nodes: [
-                  {
-                    text: 'Grandchild 1',
-                    href: '#grandchild1',
-                    tags: ['0']
-                  }
-                ]
-              },
-              {
-                text: 'Child 2',
-                href: '#child2',
-                tags: ['0']
-              }
-            ]
-          },
-          {
-            text: 'Parent 2',
-            href: '#parent2',
-            tags: ['0']
-          }
-        ];
-        return defaultData;
+        return treeviewData;
   }
-  getTree();
 	$('#tree').treeview({data: getTree()});
 	</script>
   </body>
