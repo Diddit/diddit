@@ -10,7 +10,7 @@ class Task(ndb.Model):
 	id_hash=ndb.ComputedProperty()
 	title=ndb.StringProperty()
 	type=ndb.StringProperty(indexed=True)
-	client_data=ndb.JsonProperty(indexed=False)
+	data=ndb.JsonProperty(indexed=False)
 	customers=ndb.KeyProperty(Task,indexed=True)
 	last_updated=ndb.DateTimeProperty(indexed=True,auto_now=True)
 	

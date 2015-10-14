@@ -40,7 +40,7 @@
 			if(!(nodeTree[node].customers instanceof Array))
 			{
 				sorted.push(nodeTree[node]);
-				roots.push(nodeTree[node].id);
+				roots.push(nodeTree[node].id);54
 				sorted[node].dependencies = [];
 				nodeTree[node].visited = true;
 			}
@@ -86,6 +86,7 @@
 		}
       }
       
+      // TODO: Even children should be displayed multiple times - if it's a dependency, display it.
       function traverse(sorted, dependencies)
       {
 		document.write("TRAVERSE");
@@ -101,10 +102,10 @@
 				{
 					// need to recurse in here...
 					var children = [];
-					if(!isVisited(sorted, sorted[node].dependencies[dep].id))
+					//if(!isVisited(sorted, sorted[node].dependencies[dep].id))
 					{
 						children = traverse(sorted, sorted[node].dependencies[dep].dependencies);
-						setVisited(sorted, sorted[node].dependencies[dep].id);
+						//setVisited(sorted, sorted[node].dependencies[dep].id);
 					}
 					
 					if(children.length > 0)
@@ -121,17 +122,21 @@
       }
       
   function getTree() {
-	var nodeTree = [ 
-		{"id":"dac9e8a1c1597e6c4537d018535e8519","title":"Household Tasks","data":{},"type":"diddit.Category","customers":{}}, 
-		{"id":"d58fa1d65b6422ebccf742c992dfb654","title":"Clean the toilet","data":{"done":"False"},"type":"diddit.UserReported","customers":["dac9e8a1c1597e6c4537d018535e8519"]}, 
-		{"id":"142c9bb834b5d6c75f5e93428b39f229","title":"Buy Toilet Cleaner","data":{"done":"True","product_id":"ToiletCleaner"},"type":"diddit.Buy","customers":["d58fa1d65b6422ebccf742c992dfb654"]}, 
-		{"id":"2e5f27fe26d8db05723fd6e588378cc3","title":"Clean the closet","data":{"done":"False"},"type":"diddit.UserReported","customers":["dac9e8a1c1597e6c4537d018535e8519"]}, 
-		{"id":"32f9cd5d56e5168b640d5d27f2039824","title":"Buy Surface Cleaner","data":{"done":"True","product_id":"SurfaceCleaner"},"type":"diddit.Buy","customers":["2e5f27fe26d8db05723fd6e588378cc3","d58fa1d65b6422ebccf742c992dfb654"]}];
+	var nodeTree = { 
+		"dac9e8a1c1597e6c4537d018535e8519":{"title":"Household Tasks","data":{},"type":"diddit.Category","customers":{}}, 
+		"d58fa1d65b6422ebccf742c992dfb654",{"title":"Clean the toilet","data":{"done":"False"},"type":"diddit.UserReported","customers":["dac9e8a1c1597e6c4537d018535e8519"]}, 
+		"142c9bb834b5d6c75f5e93428b39f229",{"title":"Buy Toilet Cleaner","data":{"done":"True","product_id":"ToiletCleaner"},"type":"diddit.Buy","customers":["d58fa1d65b6422ebccf742c992dfb654"]}, 
+		"2e5f27fe26d8db05723fd6e588378cc3",{"title":"Clean the closet","data":{"done":"False"},"type":"diddit.UserReported","customers":["dac9e8a1c1597e6c4537d018535e8519"]}, 
+		"32f9cd5d56e5168b640d5d27f2039824",{"title":"Buy Surface Cleaner","data":{"done":"True","product_id":"SurfaceCleaner"},"type":"diddit.Buy","customers":["2e5f27fe26d8db05723fd6e588378cc3","d58fa1d65b6422ebccf742c992dfb654"]}
+		};
 
 		var sorted = topologicallySort(nodeTree);
 
 		for(var node = 0; node < sorted.length; node++)
+		{
 			sorted[node].visited = false;
+			document.write(sorted[node].title + " has " + sorted[node].dependencies.length + " children.<br>");
+		}
 		var treeviewData = [{ text: sorted[0].title, nodes : traverse(sorted, sorted[0].dependencies)}];
         return treeviewData;
 	}

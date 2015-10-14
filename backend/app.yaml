@@ -1,4 +1,4 @@
-application: hello-flask-app-engine
+application: diddit
 version: 1
 runtime: python27
 api_version: 1
@@ -7,6 +7,15 @@ threadsafe: yes
 handlers:
 - url: .*
   script: main.app
+- url: /api/.*
+  script: api.app
+- url: /js
+  static_dir: js
+- url: /css
+  static_dir: css
+- url: /img
+  static_dir: img
+  
 
 libraries:
 - name: jinja2
