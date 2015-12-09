@@ -1,4 +1,5 @@
 from google.appengine.ext import ndb
+
 class PermissionsModel(ndb.Model):
 	read=ndb.KeyProperty(indexed=True,repeated=True,required=True)
 	edit=ndb.KeyProperty(indexed=True,repeated=True,required=True)
